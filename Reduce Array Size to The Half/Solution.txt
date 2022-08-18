@@ -1,0 +1,27 @@
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var minSetSize = function(arr) {
+  let map = new Map();  
+  for(let item of arr){
+      if(map.has(item)){
+        map.set(item,map.get(item)+1);
+      }
+    else{
+      map.set(item,1);  
+      }
+    }
+  let contain = [...map].sort((a,b)=>b[1]-a[1]);
+  console.log(contain);
+  let index = 0;
+  let sum = 0;
+  let target = arr.length/2;
+  let result =0 ;
+  while(sum < target){
+    sum += contain[index++][1];
+    result ++;
+  }
+  return result;
+  
+};
