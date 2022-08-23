@@ -1,0 +1,16 @@
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function(nums1, nums2) {
+    const len = nums1.length + nums2.length;
+  const arr = [...nums1,...nums2];
+  arr.sort((a,b)=>a-b);
+  if(len %2 == 0){
+    return (arr[parseInt(len/2)] + arr[parseInt(len/2)-1])/2;
+  }
+  else{
+    return arr[parseInt(len/2)];
+  }
+};
