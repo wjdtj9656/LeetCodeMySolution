@@ -1,0 +1,28 @@
+class Solution {
+  static int min;
+    public int threeSumClosest(int[] nums, int target) {
+      min = (int)1e9;
+      Arrays.sort(nums);
+      for(int i=0; i<nums.length; i++){
+          twosum(nums,i,target);
+        }
+      return target - min;
+    }
+  public void twosum(int nums[], int one, int target){
+    int low = one+1;
+    int high = nums.length-1;
+    while(low < high){
+      int sum = nums[one] + nums[low] + nums[high];
+      if(Math.abs(target - sum) < Math.abs(min)){
+        min = target - sum;
+        System.out.println(min);
+      }
+      if(sum < target){
+        low++;
+      }
+      else{
+        high--;
+      }
+    }
+  }
+}
