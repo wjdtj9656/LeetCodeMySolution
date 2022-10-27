@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var checkSubarraySum = function(nums, k) {
+	let prefix = 0;
+    let sum = 0;
+    let set = new Set();
+    for(let i=0; i<nums.length; i++){
+        sum += nums[i];
+        if(k != 0) sum %= k;
+      console.log("haha",sum);
+        if(set.has(sum)) return true;
+        
+        set.add(prefix);
+      console.log(set);
+        prefix = sum;
+    }
+    return false;
+};
