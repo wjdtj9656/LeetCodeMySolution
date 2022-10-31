@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxConsecutiveOnes = function(nums) {
+    let max = 0;
+    let fliped = 0;
+    let unfliped = 0;
+  for(let i=0; i<nums.length; i++){
+    if(nums[i] === 1){
+      fliped++;
+      unfliped++;
+    }
+    else{
+      max = Math.max(max,fliped);
+      fliped = unfliped + 1;
+      unfliped = 0;
+    }
+  }
+  return Math.max(max,fliped);
+};
