@@ -1,0 +1,31 @@
+/**
+ * @param {string} start
+ * @param {string} end
+ * @param {string[]} bank
+ * @return {number}
+ */
+var minMutation = function(start, end, bank) {
+  let banks = new Set(bank);
+  const gean = ["A","C","T","G"];
+  const q = [[start,0]];
+  for(let i=0; i<8; i++){
+    for(let j=0; j<4; j++){
+      
+    }
+  }
+  while(q.length !== 0){
+   let [geanStr,dist] = q.shift();
+    for(let i=0; i<8; i++){
+      if(geanStr === end) return dist;
+      for(let j=0; j<4; j++){
+        if(geanStr[i] === gean[j]) continue;
+        let now = geanStr.slice(0,i) + gean[j] + geanStr.slice(i+1,8);
+        if(banks.has(now)) {
+          q.push([now,dist+1]);
+          banks.delete(now);
+        }
+      }
+    }
+  }
+  return -1;
+};
