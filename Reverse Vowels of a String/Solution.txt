@@ -1,0 +1,25 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseVowels = function(s) {
+    let arr = s.split('');
+  let flag = [];
+  let temp = [];
+  let answer = "";
+  for(let i=0; i<s.length; i++){
+    if(arr[i] == 'a' || arr[i] == 'e' || arr[i] == 'i' || arr[i] =='o' || arr[i] =='u' || arr[i] == "A" || arr[i] == "E" || arr[i] =="I" || arr[i] =="O"||arr[i] =='U'){
+      flag[i] = true;
+      temp.push(arr[i]);
+    }
+  }
+  for(let i=0; i<s.length; i++){
+    if(!flag[i]){
+      answer += arr[i];
+    }
+    else{
+      answer += temp.pop();
+    }
+  }
+  return answer;
+};
