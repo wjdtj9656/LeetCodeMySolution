@@ -1,0 +1,26 @@
+/**
+ * @param {number[][]} matrix
+ * @return {boolean}
+ */
+var isToeplitzMatrix = function(matrix) {
+    let m = matrix.length;
+    let n = matrix[0].length;
+    
+    const check = (x,y) =>{
+        let standard = matrix[x][y];
+        while(x < m && y < n){
+            if(matrix[x][y] !== standard) return false;
+            x++;
+            y++;
+        }
+        return true;
+    }
+    
+    for(let i=0; i<m-1; i++){
+        if(!check(i,0)) return false;
+    }
+    for(let i=1; i<n-1; i++){
+        if(!check(0,i)) return false;
+    }
+    return true;
+};
