@@ -1,0 +1,32 @@
+/**
+ * @param {character[][]} maze
+ * @param {number[]} entrance
+ * @return {number}
+ */
+var nearestExit = function(maze, entrance) {
+    let m = maze.length;
+    let n = maze[0].length;
+    const visit = new Set();
+  const q = [[entrance[0],entrance[1],0]];
+  let dx = [0,0,-1,1];
+  let dy = [-1,1,0,0];
+  visit.add(`${entrance[0]}-${entrance[1]}`);
+  while(q.length){
+    const now = q.shift();
+    let x = now[0];
+    let y = now[1];
+    for(let i=0; i<4; i++){
+      let nx = x + dx[i];
+      let ny = y + dy[i];
+      if(nx<0 || ny<0 || nx>=m || ny>=n) continue;
+      if(maze[nx][ny] === "+") continue;
+      if(visit.has(`${nx}-${ny}`)) continue;
+      visit.add(`${nx}-${ny}`);
+      if(nx === 0 || nx === m-1 || ny === 0 || ny === n-1){
+        return now[2]+1;
+      }
+      q.push([nx,ny,now[2]+1]);
+    }
+  }
+  return -1;
+};
