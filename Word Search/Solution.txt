@@ -1,0 +1,44 @@
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+var exist = function(board, word) {
+    
+  let start = [];
+  let dx = [-1,1,0,0];
+  let dy = [0,0,-1,1];
+  let visit;
+  let m = board.length;
+  let n = board[0].length;
+  for(let i=0; i<board.length; i++){
+    for(let j=0; j<board[i].length; j++){
+      if(board[i][j] == word[0]){
+        start.push([i,j]);
+      }
+    }
+  }
+  let rFlag =false;
+  const dfs = (now,str) =>{
+    let [nx,ny] = now;
+    if(str.length > word.length) return;
+    if(str === word) rFlag = true;
+    visit.add(`${nx}-${ny}`);
+    for(let i=0; i<4; i++){
+      let nnx = nx + dx[i];
+      let nny = ny + dy[i];
+      if(nnx < 0 || nny < 0 || nnx>=m || nny>=n) continue;
+      if(visit.has(`${nnx}-${nny}`)) continue;
+      visit.add(`${nnx}-${nny}`);
+      dfs([nnx,nny],str+board[nnx][nny]);
+      visit.delete(`${nnx}-${nny}`);
+    }
+    
+  }
+  for(let [s,e] of start){
+    visit = new Set();
+    dfs([s,e], board[s][e]);
+    if(rFlag) return rFlag;
+  }
+  return rFlag;
+};
