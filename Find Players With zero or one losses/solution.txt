@@ -1,0 +1,23 @@
+/**
+ * @param {number[][]} matches
+ * @return {number[][]}
+ */
+var findWinners = function(matches) {
+  const loseMap = new Map();
+  const set = new Set();
+  const result = new Array(2).fill(0).map(()=>[]);
+  for(let match of matches){
+    let [win,lose] = match;
+    set.add(win);
+    set.add(lose);
+      if(loseMap.has(lose)) loseMap.set(lose,loseMap.get(lose)+1);
+    else loseMap.set(lose,1);
+  }
+  for(let team of [...set]){
+    if(!loseMap.has(team)) result[0].push(team);
+    if(loseMap.get(team) === 1) result[1].push(team);
+  }
+  result[0].sort((a,b)=>a-b);
+  result[1].sort((a,b)=>a-b);
+  return result;
+};
