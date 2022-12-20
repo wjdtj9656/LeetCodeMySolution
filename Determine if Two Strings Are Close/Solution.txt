@@ -1,0 +1,29 @@
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {boolean}
+ */
+const getGroup = (word) =>{
+  const group = {};
+  
+  for(let i=0; i<word.length; i++){
+    group[word[i]] = (group[word[i]] || 0) + 1;
+    console.log(group);
+  }
+  return{
+    keys : Object.keys(group).sort(),
+    values : Object.values(group).sort((a,b)=>a-b)
+  }
+}
+var closeStrings = function(word1, word2) {
+
+  if(word1.length !== word2.length) return false;
+  
+  const wordLeft = getGroup(word1);
+  const wordRight = getGroup(word2);
+  for(let i=0; i<word1.length; i++){
+    if(wordLeft.keys[i] !== wordRight.keys[i] || wordLeft.values[i] !== wordRight.values[i]) return false;
+  }
+  return true;
+  
+};
