@@ -1,0 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {boolean}
+ */
+     let left;
+    let right;
+var leafSimilar = function(root1, root2) {
+    left = [];
+    right = [];
+    search(root1,1);
+    search(root2,2);
+    if(left.length !== right.length) return false;
+    for(let i=0; i<left.length; i++){
+        if(left[i] !== right[i]) return false;
+    }
+    return true;
+};
+const search = (root,num) =>{
+    if(!root.left && !root.right){
+        num === 1? left.push(root.val) : right.push(root.val);
+        return;
+    }
+    if(root.left) search(root.left,num);
+    if(root.right) search(root.right,num);
+}
