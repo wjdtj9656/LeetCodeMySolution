@@ -1,0 +1,46 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+    let array;
+    let size;
+var longestConsecutive = function(nums) {
+    array = {};
+    size = {};
+    let result = 0;
+    for(let num of nums){
+        array[num] = num;
+        size[num] = 1;
+    }
+    for(let num of nums){
+        if(num-1 in array){
+            union(num-1,num);
+        }
+    }
+    for(let num of nums){
+        result = Math.max(result,size[num]);
+    }
+    return result;
+};
+const findParent = (array, num) =>{{
+    let parent = array[num];
+    while(parent !== num){
+        num = parent;
+        parent = array[num];
+        array[num] = parent;
+    }
+    return parent;
+}}
+const union = (m,n)=>{
+    const root1 = findParent(array,m);
+    const root2 = findParent(array,n);
+    if(root1 === root2) return;
+    if(size[root1] < size[root2]){
+        size[root2] += size[root1];
+        array[root1] = root2;
+    }
+    else{
+        size[root1] += size[root2];
+        array[root2] = root1;
+    }
+}
