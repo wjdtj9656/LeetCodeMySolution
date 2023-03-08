@@ -1,0 +1,18 @@
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var halvesAreAlike = function(s) {
+  const arr = ["a","e","i","o","u","A","E","I","O","U"];
+    const len = s.length/2;
+  const a = s.slice(0,len);
+  const b = s.slice(len,s.length);
+  let aCnt = 0;
+  let bCnt = 0;
+  for(let i=0; i<a.length; i++){
+    if(arr.includes(a[i])) aCnt++;
+    if(arr.includes(b[i])) bCnt++;
+  }
+  if(aCnt === bCnt) return true;
+  return false;
+};
