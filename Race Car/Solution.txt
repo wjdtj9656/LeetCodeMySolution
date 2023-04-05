@@ -1,0 +1,27 @@
+/**
+ * @param {number} target
+ * @return {number}
+ */
+var racecar = function(target) {
+    const set = new Set();
+    const bfs = (now,pos,speed) =>{
+        const q = [[now,pos,speed]];
+        while(q.length){
+            const [ins,np,ns] = q.shift();
+            if(Math.abs(np) > target*2) continue;
+            if(set.has(`${np}-${ns}`)){
+                continue;
+            }
+            set.add(`${np}-${ns}`);
+            if(np === target) return ins.length;
+            if(np+ns >0 && np+ns < 2*target)
+            q.push([ins+"A",np+ns,ns*2]);
+            let next = ns>0? -1:1;
+            const key = `${np}-${next}`;
+            if(!set.has(key)){
+                q.push([ins+"R", np, next]);
+            }
+        }
+    }
+    return bfs("",0,1);
+};
