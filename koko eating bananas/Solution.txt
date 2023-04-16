@@ -1,0 +1,18 @@
+const minEatingSpeed = (piles, h) => {
+    let left = 1,
+        right = Math.max(...piles),
+        best = right
+
+    const time = speed => piles.reduce((sum, pile) => sum + Math.ceil(pile/speed), 0)
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2)
+        if (time(mid) <= h) {
+            best = mid
+            right = mid - 1
+        } else
+            left = mid + 1
+    }
+
+    return best
+}
