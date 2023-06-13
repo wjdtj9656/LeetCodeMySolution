@@ -1,0 +1,4 @@
+/* Write your PL/SQL query statement below */
+SELECT B.unique_id, A.name
+FROM EMPLOYEES A
+LEFT OUTER JOIN EMPLOYEEUNI B ON A.id = B.id
