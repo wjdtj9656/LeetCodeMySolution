@@ -1,0 +1,18 @@
+/**
+ * @param {number[][]} points
+ * @param {number} k
+ * @return {number[][]}
+ */
+var kClosest = function(points, k) {
+    for(let i=0; i<points.length; i++) {
+        const [x,y] = points[i];
+        points[i].push((x-0)*(x-0) + (y-0)*(y-0));
+    }
+    points.sort((a,b)=>b[2]-a[2]);
+    const ans = [];
+    for(let i=0; i<k; i++){
+        const temp = points.pop();
+        ans.push([temp[0],temp[1]]);
+    }
+    return ans;
+};
