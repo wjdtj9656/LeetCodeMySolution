@@ -1,0 +1,17 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var maximumOddBinaryNumber = function(s) {
+    // Sort the string in descending order
+    const sortedChars = s.split("").sort().reverse();
+
+    // If the first character is already '1', move it to the end
+    if (sortedChars[0] === "1") {
+        // Create a new array excluding the first character and appending "1"
+        const modifiedChars = sortedChars.slice(1).concat("1");
+        return modifiedChars.join(""); // Combine characters back into a string
+    } else {
+        return sortedChars.join(""); // Simply return the sorted string
+    }
+};
