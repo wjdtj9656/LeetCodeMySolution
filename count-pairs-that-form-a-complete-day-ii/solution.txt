@@ -1,0 +1,10 @@
+var countCompleteDayPairs = function(hours) {
+    const arr = new Array(24).fill(0);
+    let ans = 0;
+    for(let hour of hours) {
+        var val = (24 - hour%24)%24;
+        ans += arr[hour%24];
+        arr[val]+=1;
+    }
+    return ans;
+};
