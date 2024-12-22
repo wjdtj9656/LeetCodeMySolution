@@ -1,0 +1,70 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val === undefined ? 0 : val);
+ *     this.left = (left === undefined ? null : left);
+ *     this.right = (right === undefined ? null : right);
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minimumOperations = function(root) {
+    if (!root) return 0;
+
+    const queue = [root];
+    let totalSwaps = 0;
+
+    while (queue.length > 0) {
+        const levelSize = queue.length;
+        const levelValues = [];
+
+        // 현재 레벨의 노드들을 queue에서 꺼내며 값 저장
+        for (let i = 0; i < levelSize; i++) {
+            const node = queue.shift();
+            levelValues.push(node.val);
+
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }
+
+        // levelValues를 정렬한 배열과 비교하여, 필요한 스왑 횟수를 계산
+        const sortedLevel = [...levelValues].sort((a, b) => a - b);
+        totalSwaps += getMinSwapCount(levelValues, sortedLevel);
+    }
+
+    return totalSwaps;
+
+    function getMinSwapCount(arr, target) {
+        const indexMap = new Map();
+        for (let i = 0; i < target.length; i++) {
+            indexMap.set(target[i], i);
+        }
+
+        const visited = new Array(arr.length).fill(false);
+        let swaps = 0;
+
+        for (let i = 0; i < arr.length; i++) {
+            if (visited[i] || indexMap.get(arr[i]) === i) {
+                visited[i] = true;
+                continue;
+            }
+
+            let cycleSize = 0;
+            let j = i;
+            while (!visited[j]) {
+                visited[j] = true;
+                j = indexMap.get(arr[j]);
+                cycleSize++;
+            }
+
+            if (cycleSize > 1) {
+                swaps += (cycleSize - 1);
+            }
+        }
+
+        return swaps;
+    }
+};
