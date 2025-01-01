@@ -1,0 +1,19 @@
+function stringShift(s, shift) {
+    let netShifts = 0;
+
+    for (let i = 0; i < shift.length; i++) {
+        if (shift[i][0] === 0) {
+            netShifts -= shift[i][1];
+        } else {
+            netShifts += shift[i][1];
+        }
+    }
+
+    netShifts = netShifts % s.length;
+
+    if (netShifts < 0) {
+        netShifts += s.length;
+    }
+
+    return s.substring(s.length - netShifts) + s.substring(0, s.length - netShifts);
+}
