@@ -1,0 +1,18 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countPalindromicSubsequence = function(s) {
+    const letters = new Set(s);
+    let res = 0;
+    for(let letter of letters){
+        const start = s.indexOf(letter);
+        const e = s.lastIndexOf(letter);
+        const bet = new Set();
+        for(let i=start+1; i<e; i++){
+            bet.add(s[i]);
+        }
+        res += bet.size;
+    }
+    return res;
+};
