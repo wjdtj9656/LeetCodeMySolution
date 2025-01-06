@@ -1,0 +1,34 @@
+var minOperations = function(boxes) {
+    const n = boxes.length;
+	boxes = boxes.split("").map(Number);
+	const left = new Array(n).fill(0);
+	const right = new Array(n).fill(0);
+	const res = new Array(n).fill(0);
+	left[0] = 0;
+	right[0] = boxes.filter(v=>v==1).length - (boxes[0] ==1? 1:0);
+	for(let i=1; i<n; i++){
+		left[i] = left[i-1] + boxes[i-1];
+		right[i] = right[i-1] - boxes[i];
+		if(left[i] < 0){
+			left[i] = 0;
+		}
+		if(right[i] < 0){
+			right[i] = 0;
+		}
+		
+		if(boxes[i] == 1){
+			res[0] += i;
+		}
+	}
+	for(let i=1; i<n; i++) {
+		if(boxes[i] == 1){
+			res[i] = (res[i-1]-1) -right[i];
+			res[i] += left[i];
+		}
+		else{
+			res[i] = (res[i-1]) - right[i];
+			res[i] += left[i];
+		}
+	}
+    return res;
+};
