@@ -1,0 +1,32 @@
+function wordSubsets(words1, words2) {
+	const getFre = (w) =>{
+		const fre = {};
+		for(let char of w) {
+			fre[char] = (fre[char] || 0) + 1;
+		}
+		return fre;
+	}
+	const gFre = {};
+	for(let w of words2){
+		const fre = getFre(w);
+		for(let key in fre){
+			gFre[key] = Math.max(fre[key],gFre[key] || 0);
+		}
+	}
+	const res =[];
+	
+	for(let w of words1){
+		let check = true;
+		const nowFreq = getFre(w);
+		for(let char in gFre){
+			if((nowFreq[char] || 0) < gFre[char]){
+				check = false;
+				break;
+			}
+		}
+		if(check){
+			res.push(w);
+		}
+	}
+	return res;
+}
