@@ -1,0 +1,17 @@
+function minOperations(nums) {
+	const n = nums.length;
+	const k = 3;
+	let flip = 0;
+	let ans = 0;
+	const diff = new Array(n+1).fill(0);
+	for(let i=0; i<n; i++){
+		flip += diff[i];
+		if((nums[i] + flip)%2 == 0){
+			if(i+k > n) return -1;
+			ans++;
+			flip++;
+			diff[i+k]--;
+		}
+	}
+	return ans;
+}
