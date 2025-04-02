@@ -1,0 +1,60 @@
+function maximumScore(nums, k) {
+  const n = nums.length;
+  const mod = 1000000007n;
+  const maxVal = Math.max(...nums);
+  const primeScores = new Array(maxVal + 1).fill(0);
+  for (let i = 2; i <= maxVal; i++) {
+    if (primeScores[i] === 0) {
+      for (let j = i; j <= maxVal; j += i) {
+        primeScores[j]++;
+      }
+    }
+  }
+  const scoreArr = nums.map(num => primeScores[num]);
+  const left = new Array(n).fill(0);
+  let stack = [];
+  for (let i = 0; i < n; i++) {
+    while (stack.length && scoreArr[stack[stack.length - 1]] < scoreArr[i]) {
+      stack.pop();
+    }
+    left[i] = stack.length === 0 ? i + 1 : i - stack[stack.length - 1];
+    stack.push(i);
+  }
+  const right = new Array(n).fill(0);
+  stack = [];
+  for (let i = n - 1; i >= 0; i--) {
+    while (stack.length && scoreArr[stack[stack.length - 1]] <= scoreArr[i]) {
+      stack.pop();
+    }
+    right[i] = stack.length === 0 ? n - i : stack[stack.length - 1] - i;
+    stack.push(i);
+  }
+  const contributions = [];
+  for (let i = 0; i < n; i++) {
+    const count = BigInt(left[i]) * BigInt(right[i]);
+    contributions.push({ factor: BigInt(nums[i]), count });
+  }
+  contributions.sort((a, b) => a.factor > b.factor ? -1 : a.factor < b.factor ? 1 : 0);
+  let remaining = BigInt(k);
+  let result = 1n;
+  for (let { factor, count } of contributions) {
+    if (remaining === 0n) break;
+    let use = remaining < count ? remaining : count;
+    result = (result * modPow(factor, use, mod)) % mod;
+    remaining -= use;
+  }
+  return Number(result);
+}
+
+function modPow(base, exponent, mod) {
+  let result = 1n;
+  base = base % mod;
+  while (exponent > 0n) {
+    if (exponent % 2n === 1n) {
+      result = (result * base) % mod;
+    }
+    base = (base * base) % mod;
+    exponent = exponent / 2n;
+  }
+  return result;
+}
